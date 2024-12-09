@@ -17,3 +17,4 @@ This project uses a dataset of car listings to create a price prediction app. Th
 2. Run the app with:
    ```bash
    streamlit run app.py
+https://car-project-1-8fsueje8f9mgoecvyxsvhd.streamlit.app
