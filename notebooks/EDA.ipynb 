@@ -1,0 +1,28 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load data
+data = pd.read_csv("../vehicles_us.csv")
+
+# Summary Statistics
+print(data.describe())
+
+# Histogram of Prices
+plt.hist(data["price"], bins=30, color="blue", edgecolor="black")
+plt.title("Histogram of Prices")
+plt.xlabel("Price")
+plt.ylabel("Frequency")
+plt.show()
+
+# Scatter Plot: Price vs. Mileage
+plt.scatter(data["mileage"], data["price"], alpha=0.5)
+plt.title("Price vs. Mileage")
+plt.xlabel("Mileage")
+plt.ylabel("Price")
+plt.show()
+
+# Correlation Matrix
+sns.heatmap(data.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Correlation Matrix")
+plt.show()

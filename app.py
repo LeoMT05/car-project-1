@@ -3,57 +3,40 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Title and Introduction
-st.title("Car Price Prediction App")
-st.write("""
-Welcome to the Car Price Prediction App! This app allows you to:
-- Upload a dataset for analysis.
-- View statistics and correlations among features.
-- Visualize data trends to understand the dataset better.
-""")
+# Load the CSV file automatically (no upload needed)
+data = pd.read_csv("vehicles_us.csv")  # Adjust the filename if necessary
 
-# File Upload
-uploaded_file = st.file_uploader("Upload your dataset (CSV file)", type=["csv"])
-if uploaded_file is not None:
-    # Load dataset
-    data = pd.read_csv(uploaded_file)
-    st.write("Dataset successfully loaded!")
-    st.write(data.head())
+# Display the first few rows of the dataset
+st.write("Dataset Preview")
+st.write(data.head())
 
-    # Select numeric columns
-    numeric_columns = data.select_dtypes(include=["float64", "int64"]).columns
-    if numeric_columns.empty:
-        st.warning("No numeric columns found in the dataset!")
-    else:
-        st.write("Numeric columns detected:")
-        st.write(list(numeric_columns))
+# Summary Statistics
+st.write("Summary Statistics:")
+st.write(data.describe())
 
-        # Display summary statistics
-        st.subheader("Summary Statistics")
-        st.write(data.describe())
+# Histogram of Prices
+st.write("Histogram of Prices:")
+plt.figure(figsize=(10,6))
+plt.hist(data["price"], bins=30, color="blue", edgecolor="black")
+plt.title("Histogram of Prices")
+plt.xlabel("Price")
+plt.ylabel("Frequency")
+st.pyplot()  # Render the plot in Streamlit
 
-        # Correlation Matrix
-        st.subheader("Correlation Matrix")
-        corr = data[numeric_columns].corr()
-        st.write(corr)
+# Scatter Plot: Price vs. Mileage
+st.write("Price vs. Mileage (Scatter Plot):")
+plt.figure(figsize=(10,6))
+plt.scatter(data["mileage"], data["price"], alpha=0.5)
+plt.title("Price vs. Mileage")
+plt.xlabel("Mileage")
+plt.ylabel("Price")
+st.pyplot()  # Render the plot in Streamlit
 
-        # Heatmap
-        st.subheader("Heatmap of Correlations")
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
-        st.pyplot(fig)
-
-        # Visualizations
-        st.subheader("Visualizations")
-        feature = st.selectbox("Select a feature for distribution plot", numeric_columns)
-        if feature:
-            fig, ax = plt.subplots()
-            sns.histplot(data[feature], kde=True, ax=ax)
-            ax.set_title(f"Distribution of {feature}")
-            st.pyplot(fig)
-
-else:
-    st.info("Please upload a CSV file to proceed.")
-
-# Footer
-st.write("Developed by leoMT05")
+# Correlation Matrix
+st.write("Correlation Matrix:")
+plt.figure(figsize=(10,6))
+sns.heatmap(data.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Correlation Matrix")
+st.pyplot()  # Render the plot in Streamlit
+data = pd.read_csv("vehicles_us.csv")
+data = pd.read_csv("data/vehicles_us.csv")
