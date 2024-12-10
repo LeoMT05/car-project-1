@@ -17,4 +17,4 @@ This project uses a dataset of car listings to create a price prediction app. Th
 2. Run the app with:
    ```bash
    streamlit run app.py
-https://musical-space-spoon-5gxp7pjg7pgw3q44-8504.app.github.dev 
+https://car-project-1-1.onrender.com
